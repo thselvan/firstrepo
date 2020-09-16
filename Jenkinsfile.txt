@@ -1,0 +1,21 @@
+pipeline {
+      agent {
+      node {
+      label remotenode 
+      }
+  }
+
+    stages {
+        stage('SCM') {
+            steps {    
+                  git 'https://github.com/thselvan/firstrepo.git'       
+            }
+        }
+	stage('InstallCert') {
+        steps {
+		bat 'PowerShell Import-Certificate -FilePath "C:/Jenkins/workspace/PipelineCertInstall/client1-2023.p7b" -CertStoreLocation Cert:/LocalMachine/My'
+
+	      }
+        }
+    }
+}
